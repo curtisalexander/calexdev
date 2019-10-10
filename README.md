@@ -1,7 +1,8 @@
 # calexdev
 
-Source for [calex.dev](https://calex.dev).
+[![Build Status](https://dev.azure.com/curtisalexander/calex.dev/_apis/build/status/curtisalexander.calexdev?branchName=master)](https://dev.azure.com/curtisalexander/calex.dev/_build/latest?definitionId=3&branchName=master)
 
+Source for [calex.dev](https://calex.dev).
 
 ## Purpose
 
