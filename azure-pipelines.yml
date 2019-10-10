@@ -33,7 +33,7 @@ steps:
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)/$(publishOutputDirectory)'
     contents: '**/dist/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/dist'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing build artifacts'
