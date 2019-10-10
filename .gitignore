@@ -6,3 +6,4 @@ paket-files/
 **/[Oo]bj/
 **/[Bb]in/
 [Pp]ublish/
+.ionide/*
