@@ -1,4 +1,4 @@
-# calex-dev
+# calexdev
 
 Source for [calex.dev](https://calex.dev).
 
