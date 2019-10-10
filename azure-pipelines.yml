@@ -2,11 +2,11 @@ trigger:
   batch: true
   branches:
     include:
-    - master
+      - 'master'
   paths:
     include:
-    - src/*.Client/**
-    - azure-pipelines.yml
+      - 'src/*.Client/**'
+      - 'azure-pipelines.yml'
 
 pool:
   vmImage: 'ubuntu-latest'
