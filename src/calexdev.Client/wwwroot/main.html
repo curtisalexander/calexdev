@@ -46,15 +46,40 @@
       </template>
 
       <template id="Counter">
-        <h1 class="title">A simple counter</h1>
-        <p>
-          <button onclick="${Decrement}" class="button">-</button>
-          <input type="number" id="counter" class="input" bind="${Value}">
-          <button onclick="${Increment}" class="button">+</button>
-        </p>
-        <p>
-          The counter's value is: ${Value}
-        </p>
+        <section class="section">
+          <div class="container">
+            <h1 class="title">A simple counter</h1>
+            <p>
+              <button onclick="${Decrement}" class="button">-</button>
+              <input type="number" id="counter" class="input" bind="${Value}" />
+              <button onclick="${Increment}" class="button">+</button>
+            </p>
+            <p>
+              The counter's value is: ${Value}
+            </p>
+          </div>
+        </section>
+      </template>
+
+      <template id="Reverse">
+        <section class="section">
+          <div class="container">
+            <h1 class="title">A simple way to reverse strings</h1>
+            Let's reverse strings!
+            <div class="field">
+              <div class="control">
+                <input type="text" id="reverse" class="input" bind="${StringToReverseValue}" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button onclick="${ReverseString}" class="button is-primary">
+                  Reverse!
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </template>
 
       <template id="Data">

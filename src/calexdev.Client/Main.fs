@@ -13,6 +13,7 @@ open Bolero.Templating.Client
 type Page =
     | [<EndPoint "/">] Home
     | [<EndPoint "/counter">] Counter
+    | [<EndPoint "/reverse">] Reverse
     | [<EndPoint "/data">] Data
 
 /// The Elmish application's model.
@@ -26,6 +27,7 @@ type Model =
         password: string
         signedInAs: option<string>
         signInFailed: bool
+        stringToReverse: string
     }
 
 and Book =
@@ -47,6 +49,7 @@ let initModel =
         password = ""
         signedInAs = None
         signInFailed = false
+        stringToReverse = ""
     }
 
 /// Remote service definition.
@@ -92,6 +95,8 @@ type Message =
     | RecvSignOut
     | Error of exn
     | ClearError
+    | SetStringToReverse of string
+    | ReverseString
 
 let update remote message model =
     let onSignIn = function
@@ -107,6 +112,11 @@ let update remote message model =
         { model with counter = model.counter - 1 }, Cmd.none
     | SetCounter value ->
         { model with counter = value }, Cmd.none
+
+    | ReverseString ->
+        { model with stringToReverse = model.stringToReverse.ToCharArray() |> Array.rev |> System.String }, Cmd.none
+    | SetStringToReverse s ->
+        { model with stringToReverse = s }, Cmd.none
 
     | GetBooks ->
         let cmd = Cmd.ofAsync remote.getBooks () GotBooks Error
@@ -151,6 +161,12 @@ let counterPage model dispatch =
         .Decrement(fun _ -> dispatch Decrement)
         .Increment(fun _ -> dispatch Increment)
         .Value(model.counter, fun v -> dispatch (SetCounter v))
+        .Elt()
+
+let reversePage model dispatch =
+    Main.Reverse()
+        .StringToReverseValue(model.stringToReverse, fun s -> dispatch (SetStringToReverse s))
+        .ReverseString(fun _ -> dispatch ReverseString)
         .Elt()
 
 let dataPage model (username: string) dispatch =
@@ -199,12 +215,14 @@ let view model dispatch =
         .Menu(concat [
             menuItem model Home "Home"
             menuItem model Counter "Counter"
+            menuItem model Reverse "Reverse"
             menuItem model Data "Download data"
         ])
         .Body(
             cond model.page <| function
             | Home -> homePage model dispatch
             | Counter -> counterPage model dispatch
+            | Reverse -> reversePage model dispatch
             | Data ->
                 cond model.signedInAs <| function
                 | Some username -> dataPage model username dispatch
