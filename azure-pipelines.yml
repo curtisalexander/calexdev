@@ -18,13 +18,13 @@ steps:
   displayName: 'Run "dotnet build" with config $(buildConfiguration)'
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration) src/*.Client'
+    arguments: '--configuration $(buildConfiguration) $(Build.SourcesDirectory)/src/*.Client'
 - task: DotNetCoreCLI@2
   displayName: 'Run "dotnet publish" with config $(buildConfiguration)'
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '--configuration $(buildConfiguration) --output $(publishOutputDirectory)/ src/*.Client'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.SourcesDirectory)/$(publishOutputDirectory)/ $(Build.SourcesDirectory)/src/*.Client'
     zipAfterPublish: false
 - task: CopyFiles@2
   displayName: 'Copy published directory'
