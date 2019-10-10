@@ -1,19 +1,38 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+  buildConfiguration: 'Release'
+  dotNetCoreVersion: 3.0.100
+  publishOutputDirectory: 'publish'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK, version $(dotNetCoreVersion)'
+  inputs:
+    version: $(dotNetCoreVersion)
+- task: DotNetCoreCLI@2
+  displayName: 'Run "dotnet build" with config $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration) src/*.Client'
+- task: DotNetCoreCLI@2
+  displayName: 'Run "dotnet publish" with config $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(publishOutputDirectory)/ src/*.Client'
+    zipAfterPublish: false
+- task: CopyFiles@2
+  displayName: 'Copy published directory'
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)/$(publishOutputDirectory)'
+    contents: '**/dist/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/dist'
+    cleanTargetFolder: true
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing build artifacts'
+
