@@ -1,0 +1,4 @@
+Bolero.Server
+Bolero.HotReload.Server
+Microsoft.AspNetCore.Blazor.Server
+FSharp.Core

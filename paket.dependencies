@@ -1,0 +1,12 @@
+frameworks: netstandard2.0, netcoreapp3.0
+storage: none
+source https://api.nuget.org/v3/index.json
+nuget Bolero >= 0.9.3-preview0 preview
+nuget Bolero.Build >= 0.9.3-preview0 preview
+nuget Bolero.HotReload >= 0.9.3-preview0 preview
+nuget Bolero.HotReload.Server >= 0.9.3-preview0 preview
+nuget Bolero.Server >= 0.9.3-preview0 preview
+nuget FSharp.Core
+nuget Microsoft.AspNetCore.Blazor.Build >= 3.0-preview9.0 preview9
+nuget Microsoft.AspNetCore.Blazor.DevServer >= 3.0-preview9.0 preview9
+nuget Microsoft.AspNetCore.Blazor.Server >= 3.0-preview8.0 preview8

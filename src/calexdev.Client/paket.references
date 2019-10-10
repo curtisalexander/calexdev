@@ -1,0 +1,6 @@
+Bolero
+Bolero.Build
+Bolero.HotReload
+Microsoft.AspNetCore.Blazor.Build
+Microsoft.AspNetCore.Blazor.DevServer
+FSharp.Core
